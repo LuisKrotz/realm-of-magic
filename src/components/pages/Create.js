@@ -5,36 +5,59 @@ import FormattedDate from "../common/FormattedDate"
 
 const Create = () => {
     const [name, setName] = useState('')
-    const [type, setType] = useState('')
     const [latestSpells, setLatestSpells] = useState([])
     const [sending, setSending] = useState(false)
+    const [type, setType] = useState('')
+    const [version, setVersion] = useState(0)
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        navigate(!sessionStorage.getItem(global.config.tokens.authToken) ?? global.config.routes.login)
+        if(!sessionStorage.getItem(global.config.tokens.authToken)) navigate(global.config.routes.login)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
+    const changeVersion = () => {
+        // Update UI without waiting for React's next cycle
+        // Re-render list with updated values
+        let change = version + 1
+
+        setVersion(change)
+    }
+
     const getSpellById = (id) => {
-        fetch(global.config.api.path + global.config.api.findByID, {
-            method: 'POST',
-            crossDomain:true,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({id: id })
-        }).then((response) => {
-            if (response.ok)
-                return response.json()
+        const promise = new Promise((resolve) =>
+            fetch(global.config.api.path + global.config.api.findByID, {
+                method: 'POST',
+                crossDomain:true,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({id: id })
+            }).then((response) => {
+                if (response.ok)
+                    return response.json()
 
-            throw new Error(response.statusText);
-        }).then((detailsJSON) =>  {
-            setLatestSpells([...latestSpells, detailsJSON].reverse())
+                throw new Error(response.statusText);
+            }).then((detailsJSON) =>  {
+                let spells = latestSpells
 
-        }).catch((error) => toast.error(`Something went wrong, please report this error: ${error}`))
+                spells.push(detailsJSON)
+                spells.reverse()
+
+                setLatestSpells(spells)
+
+                changeVersion()
+                setTimeout(() => resolve(detailsJSON), 100)
+            }).catch((error) => toast.error(`Something went wrong, please report this error: ${error}`))
+        )
+
+        toast.promise(promise, {
+            pending: `Updating ...`,
+            error: `Something went wrong`
+        });
     }
 
 
@@ -81,7 +104,7 @@ const Create = () => {
         )
 
         toast.promise(promise, {
-            pending: `Creating spell`,
+            pending: `Creating spell "${fields.name}"`,
             success: `"${fields.name}" created with success!`,
             error: `Could't create "${fields.name}" , please try again later`
         });
@@ -121,7 +144,7 @@ const Create = () => {
                     <h3>Latest Additions:</h3>
                     <ul>
                         {latestSpells.map((spell, key) => (
-                            <li key={key}>
+                             <li key={`list-${key}-v${version}`}>
                                 <span>Name: {spell.name}</span>
                                 <span>Type: {spell.type}</span>
                                 <span>Date: <FormattedDate date={spell.createdAt} /></span>
