@@ -15,10 +15,10 @@ const App = () => {
   const location = useLocation()
   const navigate = useNavigate()
 
-  let token = sessionStorage.getItem(global.config.tokens.authToken)
+  let token = sessionStorage?.getItem(global.config.tokens.authToken)
 
   useEffect(() => {
-    navigate(!token ?? global.config.routes.login)
+    if(!token) navigate(global.config.routes.login)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
