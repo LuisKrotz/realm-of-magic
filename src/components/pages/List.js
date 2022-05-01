@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify'
 import FormattedDate from "../common/FormattedDate"
+import ListHidden from "./list/ListHidden"
+import ListInput from "./list/ListInput"
 
 
 const List= () => {
@@ -220,29 +222,20 @@ const List= () => {
                         { spells.map((spell, key) => (
                             <li key={`list-${key}-v${version}`}>
                                 <form onSubmit={(e) => handleSubmitAction(e)} >
-                                    <input name="id"
-                                            type="hidden"
-                                            defaultValue={spell.id}/>
+                                    <ListHidden name={'id'}
+                                                value={spell.id}/>
 
-                                    <label htmlFor={`name-${key}`}>Name: </label>
-                                    <input id={`name-${key}`}
-                                            name="name"
-                                            type="text"
-                                            defaultValue={spell.name}
-                                            disabled={sending || !editing}
-                                            required/>
+                                    <ListInput id={key}
+                                                name={'name'}
+                                                value={spell.name}
+                                                disabled={sending || !editing} />
+                                    <ListInput id={key}
+                                                name={'type'}
+                                                value={spell.type}
+                                                disabled={sending || !editing} />
 
-                                    <label htmlFor={`type-${key}`}>Type: </label>
-                                    <input id={`type-${key}`}
-                                            name="type"
-                                            type="text"
-                                            disabled={sending || !editing}
-                                            defaultValue={spell.type}
-                                            required/>
-                                    
-                                    <input name="version"
-                                            type="hidden"
-                                            defaultValue={spell.version}/>
+                                    <ListHidden name={'version'}
+                                                value={spell.version}/>
 
                                     <FormattedDate date={spell.createdAt} />
 
