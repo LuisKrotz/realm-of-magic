@@ -5,15 +5,17 @@ import FormattedDate from "../common/FormattedDate"
 
 
 const List= () => {
-    const [spells, setSpells] = useState({})
-    const [sending, setSending] = useState(false)
-    const [editing, setEditing] = useState(false)
     const [deleting, setDeleting] = useState(false)
+    const [editing, setEditing] = useState(false)
+    const [sending, setSending] = useState(false)
+    const [spells, setSpells] = useState([])
+    const [version, setVersion] = useState(0)
+
     const navigate = useNavigate()
 
     useEffect(() => {
         if(!sessionStorage.getItem(global.config.tokens.authToken)) 
-            navigate(global.config.routes.login)
+            navigate( global.config.routes.login)
         else
             getSpells()
 
@@ -21,30 +23,46 @@ const List= () => {
     }, [])
 
 
+    const changeVersion = () => {
+        // Re-render list after data is changed but array references are the same
+        // Re-render with updated values
+        let change = version + 1
+
+        setVersion(change)
+    }
 
     const getSpells = () => {
-        const promise = new Promise((resolve) => 
-            fetch(global.config.api.path + global.config.api.spells, {
-                crossDomain:true,
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: 'GET'
-            })
-            .then((response) => {
-                if (response.ok)
-                    return response.json()
+        const promise = new Promise((resolve) => {
+                setSending(true)
 
-                throw new Error(response.statusText);
-            })
-            .then((spellListJSON => {
-                setSpells(sortArray(spellListJSON.spells))
+                fetch(global.config.api.path + global.config.api.spells, {
+                    crossDomain:true,
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'GET'
+                })
+                .then((response) => {
+                    if (response.ok)
+                        return response.json()
 
-                resolve()
-            })).catch((error) => {
-                toast.error(`Could't fetch the spells, please report this error: ${error}`)
-            })
+                    throw new Error(response.statusText);
+                })
+                .then((spellListJSON => {
+                    if (spells.length > 0) {
+                        setSpells(sortArray(spellListJSON.spells))
+                        changeVersion()
+                    } else 
+                        setSpells(sortArray(spellListJSON.spells))
+
+                    resolve()
+                })).catch((error) => {
+                    toast.error(`Could't fetch the spells, please report this error: ${error}`)
+                }).finally(() => {
+                    setSending(false)
+                })
+            }
         )
 
         toast.promise(promise, {
@@ -83,11 +101,12 @@ const List= () => {
         })
         .then((actionJSON) => {
             if (deleting) {
-                setSpells(spells.filter((element) => {
-                    return element.id !== actionJSON.id
-                }))
+                let filteredArray = spells.filter((element) => { return element.id !== actionJSON.id })
+
+                setSpells(sortArray([...spells.splice(0, 0), ...filteredArray]))
 
                 setTimeout(() => resolve(actionJSON), 100)
+                changeVersion()
             }
 
             if (editing) {
@@ -104,15 +123,15 @@ const List= () => {
 
                     throw new Error(response.statusText);
                 }).then((detailsJSON) =>  {
-                    let aux = spells.filter((element) => {
-                                return element.id !== fields.id && element.version !== fields.version
-                            })
-                    
-                    aux.push(detailsJSON)
+                    let filteredArray = spells.filter((element) => { return element.id !== actionJSON.id && element.version !== actionJSON.version })
 
-                    setSpells(sortArray(aux))
+                    filteredArray.push(detailsJSON)
+                    filteredArray = sortArray(filteredArray)
+
+                    setSpells(filteredArray)
 
                     setTimeout(() => resolve(actionJSON), 100)
+                    changeVersion()
                 }).catch((error) => toast.error(`Something went wrong, please report this error: ${error}`))
             }
         })
@@ -199,11 +218,11 @@ const List= () => {
 
                     <ul>
                         { spells.map((spell, key) => (
-                            <li key={key}>
+                            <li key={`list-${key}-v${version}`}>
                                 <form onSubmit={(e) => handleSubmitAction(e)} >
                                     <input name="id"
                                             type="hidden"
-                                            value={spell.id}/>
+                                            defaultValue={spell.id}/>
 
                                     <label htmlFor={`name-${key}`}>Name: </label>
                                     <input id={`name-${key}`}
@@ -223,9 +242,7 @@ const List= () => {
                                     
                                     <input name="version"
                                             type="hidden"
-                                            value={spell.version}/>
-
-                                            {/* TODO >> fix value without onChange */}
+                                            defaultValue={spell.version}/>
 
                                     <FormattedDate date={spell.createdAt} />
 
