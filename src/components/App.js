@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 import { useNavigate, useLocation, Routes, Route, Link } from "react-router-dom";
 
+import { ToastContainer } from 'react-toastify';
 
 import List from "./pages/List"
 import Create from "./pages/Create"
 import Login from "./pages/Login"
+
+import 'react-toastify/dist/ReactToastify.css';
 import '../sass/app.scss'
 
 
@@ -31,6 +34,8 @@ const App = () => {
   return (
       <div className="magic">
         <h1>Magic demo</h1>
+
+
         {(token !== undefined && token !== null && location.pathname !== global.config.routes.login) &&
         <nav>
           <span>Logo Aqui</span>
@@ -43,6 +48,17 @@ const App = () => {
           </div>
         </nav>
         }
+
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={true}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover />
 
         <Routes>
           <Route path={global.config.routes.login}
