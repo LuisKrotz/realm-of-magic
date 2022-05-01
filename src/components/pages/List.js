@@ -209,7 +209,7 @@ const List= () => {
                                     <input id={`name-${key}`}
                                             name="name"
                                             type="text"
-                                            value={spell.name}
+                                            defaultValue={spell.name}
                                             disabled={sending || !editing}
                                             required/>
 
@@ -218,7 +218,7 @@ const List= () => {
                                             name="type"
                                             type="text"
                                             disabled={sending || !editing}
-                                            value={spell.type}
+                                            defaultValue={spell.type}
                                             required/>
                                     
                                     <input name="version"
