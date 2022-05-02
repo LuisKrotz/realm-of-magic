@@ -10,12 +10,6 @@
     position: relative;
     cursor: pointer;
 
-    // Override browser default style
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-
     padding: .85em 0;
 }
 
