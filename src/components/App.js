@@ -33,25 +33,33 @@ const App = () => {
 
   return (
       <div className="magic">
-        <h1>Magic demo</h1>
-
-
         {(token !== undefined && token !== null && location.pathname !== global.config.routes.login) &&
-        <nav>
-          <span>Logo Aqui</span>
+        <nav className="nav">
+          {<Link className='nav-logo'
+                to={global.config.routes.list}>
+              Magic Demo
+          </Link>}
 
           <div>
-            {(location.pathname === global.config.routes.list) && <Link to={global.config.routes.create}>Create Magic</Link>}
-            {(location.pathname === global.config.routes.create) && <Link to={global.config.routes.list}>List Magic</Link>}
-            <span> | </span> 
-            <button onClick={logout}>Sign Out</button>
+            {(location.pathname === global.config.routes.create) && <Link className='nav-link'
+                                                                        to={global.config.routes.create}>
+                                                                      List Magic
+                                                                    </Link>}
+
+            {(location.pathname === global.config.routes.list) && <Link className='nav-link'
+                                                                      to={global.config.routes.create}>
+                                                                    Create Spell
+                                                                  </Link>}
+            
+            <span className='nav-separator'> | </span> 
+            <button className='nav-link' onClick={logout}>Sign Out</button>
           </div>
         </nav>
         }
 
         <ToastContainer
           position="top-right"
-          autoClose={3000}
+          autoClose={5000}
           hideProgressBar={false}
           newestOnTop={true}
           closeOnClick
@@ -62,15 +70,16 @@ const App = () => {
 
         <Routes>
           <Route path={global.config.routes.login}
-            element={<Login />}
+            element={<Login title={'Login | Magic Demo'} />}
           />
 
           <Route path={global.config.routes.list}
-            element={<List />}
+            element={<List title={'Magic Demo'}/>}
+            title="Magic Demo"
           />
 
           <Route path={global.config.routes.create}
-            element={<Create />}
+            element={<Create title={'Create Spell | Magic Demo'}/>}
           />
         </Routes>
       </div>

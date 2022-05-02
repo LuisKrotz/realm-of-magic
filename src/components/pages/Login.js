@@ -6,8 +6,10 @@ import { useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify'
 import Button from "../common/LoginButton"
 
+import '../../sass/login.scss'
 
-const LoginFields = () => {
+
+const LoginFields = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -19,6 +21,10 @@ const LoginFields = () => {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    useEffect(() => {
+        document.title = props.title
+    }, [props.title])
 
     const login = (data) => {
         sessionStorage.setItem(global.config.tokens.authToken, data)
@@ -60,29 +66,41 @@ const LoginFields = () => {
     }
 
     return (
-        <form onSubmit={preventDefault}>
-            <h2>Login</h2>
+        <form className='magic-login' onSubmit={preventDefault}>
+            <video className='magic-login-background' poster="https://media.giphy.com/media/l41lN3o4fk4ZgrSDK/giphy.gif" width="480" height="480" playsInline autoPlay loop muted>
+                <source src="https://media.giphy.com/media/l41lN3o4fk4ZgrSDK/giphy.mp4"></source>
+            </video>
 
-            <label htmlFor="email">Email</label>
-            <input id="email"
+            <div className='magic-login-wrapper'>
+                <h2 className='magic-login-title'>Magic Login</h2>
+
+                <label className='magic-login-label'
+                    htmlFor="email">Email</label>
+                <input className='magic-login-field'
+                    id="email"
                     type="email"
                     placeholder="sample@email.com"
                     required
                     minLength="5"
                     onChange={(e) => setEmail(e.target.value)} />
 
-            <label htmlFor="password">Password</label>
-            <input id="password"
+                <label className='magic-login-label'
+                    htmlFor="password">Password</label>
+                <input className='magic-login-field'
+                    id="password"
                     type="password"
                     placeholder="****"
                     required
                     minLength="8"
                     onChange={(e) => setPassword(e.target.value)} />
 
-            <Button label={'Sign In'}
-                    handleAction={() => handleAction('login')} />
-            <Button label={'Sign Up'}
-                    handleAction={() => handleAction('register')} />
+                <div className='magic-login-buttons'>
+                    <Button label={'Sign In'}
+                        handleAction={() => handleAction('login')} />
+                    <Button label={'Sign Up'}
+                        handleAction={() => handleAction('register')} />
+                </div>
+            </div>
         </form>
     )
 }

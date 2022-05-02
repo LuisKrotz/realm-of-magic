@@ -5,8 +5,7 @@ module.exports = global.config = {
     routes: {
         create: "/create",
         login: "/login",
-        list: "/",
-        
+        list: "/"
     },
     api: {
         path: "https://9488e748.us-south.apigw.appdomain.cloud/api/v1",

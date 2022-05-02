@@ -6,7 +6,7 @@ import ListHidden from "./list/ListHidden"
 import ListInput from "./list/ListInput"
 
 
-const List= () => {
+const List = (props) => {
     const [deleting, setDeleting] = useState(false)
     const [editing, setEditing] = useState(false)
     const [sending, setSending] = useState(false)
@@ -23,6 +23,10 @@ const List= () => {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    useEffect(() => {
+        document.title = props.title
+    }, [props.title])
 
 
     const changeVersion = () => {

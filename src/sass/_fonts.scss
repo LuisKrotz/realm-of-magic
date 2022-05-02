@@ -1,0 +1,45 @@
+.ttl {
+    &-md,
+    &-lg {
+        font-family: 'Griffy', cursive;
+    }
+
+    &-lg {
+        font-size: to-rem($F9);
+
+        @include layout-1024() {
+            font-size: to-rem($F10);
+        }
+    }
+
+    &-md {
+        font-size: to-rem($F8);
+
+        @include layout-1024() {
+            font-size: to-rem($F9);
+        }
+    }
+}
+
+.txt {
+    &-md,
+    &-sm {
+        font-family: 'Bellefair', cursive;
+    }
+
+    &-md {
+        font-size: to-rem($F9);
+
+        @include layout-1024() {
+            font-size: to-rem($F10);
+        }
+    }
+
+    &-sm {
+        font-size: to-rem($F8);
+
+        @include layout-1024() {
+            font-size: to-rem($F9);
+        }
+    }
+}

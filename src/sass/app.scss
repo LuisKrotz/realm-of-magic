@@ -1,1 +1,53 @@
-// TODO
+@import '_variables';
+@import '_mixins';
+@import '_fonts';
+@import '_placeholders';
+@import '_structure';
+
+.nav {
+  @extend %MAX-AREA;
+
+  z-index: 100;
+  left: 0;
+  top: to-rem($F7);
+  position: fixed;
+  justify-content: space-between;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &-link,
+  &-logo {
+    color: var(--grey);
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity .3s ease-in;
+    position: relative;
+
+    &:hover,
+    &:focus {
+      opacity: .5;
+    }
+  }
+
+  &-logo {
+    @extend .ttl-md;
+  }
+
+  &-link {
+    @extend .txt-md;
+  }
+
+  &-separator {
+    @extend .txt-sm;
+
+    color: var(--grey);
+    padding: 0 to-rem($F7);
+  }
+}
+
+.magic {
+  @extend %MAX-AREA;
+  @extend %MAX-AREA;
+}

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify'
 import FormattedDate from "../common/FormattedDate"
 
-const Create = () => {
+const Create = (props) => {
     const [name, setName] = useState('')
     const [latestSpells, setLatestSpells] = useState([])
     const [sending, setSending] = useState(false)
@@ -17,6 +17,10 @@ const Create = () => {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    useEffect(() => {
+        document.title = props.title
+    }, [props.title])
 
 
     const changeVersion = () => {
