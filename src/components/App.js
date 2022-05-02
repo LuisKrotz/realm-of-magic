@@ -1,14 +1,13 @@
 import { useEffect } from "react";
-import { useNavigate, useLocation, Routes, Route, Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { ToastContainer } from 'react-toastify';
-
-import List from "./pages/List"
-import Create from "./pages/Create"
-import Login from "./pages/Login"
+import Navbar from "./features/Navbar";
+import CreateRoutes from "./routes/CreateRoutes";
 
 import 'react-toastify/dist/ReactToastify.css';
 import '../sass/app.scss'
+
 
 
 const App = () => {
@@ -24,37 +23,13 @@ const App = () => {
   }, [])
 
 
-  const logout = () => {
-    sessionStorage.removeItem(global.config.tokens.authToken)
 
-    navigate(global.config.routes.login)
-  }
   
 
   return (
       <div className="magic">
         {(token !== undefined && token !== null && location.pathname !== global.config.routes.login) &&
-        <nav className="nav">
-          {<Link className='nav-logo'
-                to={global.config.routes.list}>
-              Magic Demo
-          </Link>}
-
-          <div>
-            {(location.pathname === global.config.routes.create) && <Link className='nav-link'
-                                                                        to={global.config.routes.create}>
-                                                                      List Magic
-                                                                    </Link>}
-
-            {(location.pathname === global.config.routes.list) && <Link className='nav-link'
-                                                                      to={global.config.routes.create}>
-                                                                    Create Spell
-                                                                  </Link>}
-            
-            <span className='nav-separator'> | </span> 
-            <button className='nav-link' onClick={logout}>Sign Out</button>
-          </div>
-        </nav>
+            <Navbar />
         }
 
         <ToastContainer
@@ -68,20 +43,8 @@ const App = () => {
           draggable
           pauseOnHover />
 
-        <Routes>
-          <Route path={global.config.routes.login}
-            element={<Login title={'Login | Magic Demo'} />}
-          />
 
-          <Route path={global.config.routes.list}
-            element={<List title={'Magic Demo'}/>}
-            title="Magic Demo"
-          />
-
-          <Route path={global.config.routes.create}
-            element={<Create title={'Create Spell | Magic Demo'}/>}
-          />
-        </Routes>
+        <CreateRoutes />
       </div>
   )
 }

@@ -1,0 +1,54 @@
+.nav {
+    @extend %MAX-AREA;
+  
+    z-index: 100;
+    left: 0;
+    padding-top: to-rem($F7);
+    padding-bottom: to-rem($F7);
+    position: fixed;
+    justify-content: space-between;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: var(--white);
+    box-shadow: -1px 0 10px 0 var(--grey-1);
+
+    @include layout-1024 {
+        padding-top: to-rem($F8);
+        padding-bottom: to-rem($F8);
+    }
+  
+    &-link,
+    &-logo {
+        transition: color;
+        color: var(--grey-3);
+        text-decoration: none;
+        cursor: pointer;
+        position: relative;
+
+        &:hover,
+        &:focus {
+            text-decoration: underline;
+            color: var(--black);
+        }
+    }
+  
+    &-logo {
+      @extend .ttl-md;
+      color: var(--accent);
+    }
+  
+    &-link {
+      @extend .txt-sm;
+      color: var(--grey-3);
+    }
+  
+    &-separator {
+      @extend .txt-sm;
+  
+      color: var(--grey);
+      padding: 0 to-rem($F7);
+      pointer-events: none;
+    }
+}

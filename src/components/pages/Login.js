@@ -39,7 +39,7 @@ const LoginFields = (props) => {
           .then((response) => {
               login(response._tokenResponse.refreshToken)
 
-              toast.success('Welcome to Magic Demo!')
+              toast.success('Welcome to Magic!')
             })
           .catch((error) => {
                 if (error.code === 'auth/email-already-in-use') toast.info('Email in use, please sign in!')
@@ -72,7 +72,7 @@ const LoginFields = (props) => {
             </video>
 
             <div className='magic-login-wrapper'>
-                <h2 className='magic-login-title'>Magic Login</h2>
+                <h2 className='magic-login-title'>🧙 Magic Login</h2>
 
                 <label className='magic-login-label'
                     htmlFor="email">Email</label>
@@ -95,7 +95,7 @@ const LoginFields = (props) => {
                     onChange={(e) => setPassword(e.target.value)} />
 
                 <div className='magic-login-buttons'>
-                    <Button label={'Sign In'}
+                    <Button label={'Login'}
                         handleAction={() => handleAction('login')} />
                     <Button label={'Sign Up'}
                         handleAction={() => handleAction('register')} />

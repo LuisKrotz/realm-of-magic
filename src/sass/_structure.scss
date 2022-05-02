@@ -7,6 +7,8 @@
     --accent: #5b3a6b;
 
 
+    // REACT TOASTIFY
+    // https://fkhadra.github.io/react-toastify/how-to-style/
     --toastify-color-light: var(--white);
     --toastify-color-dark: var(--black);
     --toastify-color-info: #185075;
@@ -14,37 +16,18 @@
     --toastify-color-warning: #e59c00;
     --toastify-color-error: #a51100;
     --toastify-color-transparent: rgba(247, 242, 234, 0.7);
-    
-    
+
     --toastify-toast-width: 20rem;
     --toastify-toast-background: var(--white);
     --toastify-toast-min-height: 4rem;
     --toastify-toast-max-height: 50rem;
     --toastify-font-family: 'Bellefair', sans-serif;
     --toastify-z-index: 100;
-    
+
     --toastify-text-color-light: var(--grey-3);
-    
-    // //Used only for colored theme
-    // --toastify-text-color-info: #fff;
-    // --toastify-text-color-success: #fff;
-    // --toastify-text-color-warning: #fff;
-    // --toastify-text-color-error: #fff;
-    
+
     --toastify-spinner-color: var(--accent);
     --toastify-spinner-color-empty-area: #5b3a6b46;
-    
-    // // Used when no type is provided
-    // // toast("**hello**")
-    // --toastify-color-progress-light: linear-gradient(
-    //     to right,
-    //     #4cd964,
-    //     #5ac8fa,
-    //     #007aff,
-    //     #34aadc,
-    //     #5856d6,
-    //     #ff2d55
-    // );
 }
 
 html,
@@ -106,13 +89,8 @@ button {
     @extend %RESET-BUTTON;
 }
 
-main {
-    .modal-open & {
-        position: fixed;
-    }
-}
 
-#main,
-#home {
-    min-height: 100vh;
-}
+.magic {
+    @extend %MAX-AREA;
+    @extend %MAX-AREA;
+  }

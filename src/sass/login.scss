@@ -43,18 +43,22 @@
         z-index: 1;
 
         @include layout-768() {
-            width: to-rem($F14);
+            width: max-content
         }
     }
 
     &-title {
         @extend .ttl-lg;
-        padding-bottom: to-rem($F8);
+        padding: 0 0 to-rem($F8);
         color: var(--accent);
+
+        @include layout-768() {
+            padding: 0 to-rem($F12) to-rem($F8) 0;
+        }
     }
 
     &-label {
-        @extend .txt-md;
+        @extend .txt-sm;
 
         display: block;
         color: var(--accent);
@@ -91,7 +95,7 @@
         margin-top: to-rem($F7);
        
         .login-button {
-            @extend .txt-md;
+            @extend .txt-sm;
 
             transition: background-color .5s ease-in-out, color .5s linear;
             color: var(--grey-3);
