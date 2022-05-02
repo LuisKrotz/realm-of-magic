@@ -3,10 +3,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import { ToastContainer } from 'react-toastify';
 import Navbar from "./features/Navbar";
+import Footer from "./features/Footer";
 import CreateRoutes from "./routes/CreateRoutes";
 
 import 'react-toastify/dist/ReactToastify.css';
 import '../sass/app.scss'
+
 
 
 
@@ -22,9 +24,6 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-
-
-  
 
   return (
       <div className="magic">
@@ -45,6 +44,7 @@ const App = () => {
 
 
         <CreateRoutes />
+        <Footer />
       </div>
   )
 }

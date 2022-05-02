@@ -1,0 +1,18 @@
+.footer {
+    @extend .txt-xs;
+
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    padding: to-rem($F8);
+    color: var(--grey-3);
+    mix-blend-mode: exclusion;
+
+    &-link {
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
