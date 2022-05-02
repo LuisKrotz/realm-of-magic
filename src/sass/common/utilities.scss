@@ -1,0 +1,28 @@
+.generic-button {
+    @extend .txt-sm;
+
+    transition: background-color .5s ease-in-out, color .5s linear;
+    color: var(--grey-3);
+    border: 1px solid var(--grey-2);
+    padding: to-rem($F6) to-rem($F4);
+    display: block;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        color: var(--black);
+        background-color: var(--grey-2);
+        border-color: var(--grey-2);
+
+        .sending & {
+            background-color: none;
+            color: var(--grey-3);
+        }
+    }
+
+    .sending & {
+        pointer-events: none;
+        cursor: wait;
+    }
+}

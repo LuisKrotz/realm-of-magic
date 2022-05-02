@@ -5,6 +5,8 @@ import FormattedDate from "../common/FormattedDate"
 import ListHidden from "./list/ListHidden"
 import ListInput from "./list/ListInput"
 
+import '../../sass/list.scss'
+
 
 const List = (props) => {
     const [deleting, setDeleting] = useState(false)
@@ -180,52 +182,59 @@ const List = (props) => {
     return (
         <>
             { spells.length > 0 &&
-                <div>
-                    <h2>Spell List:</h2>
+                <div className="magic-list">
+                    <div >
+                        <h2 className="magic-list-title">Spell List:</h2>
 
-                    <div>
-                        <p>Mode:</p>
+                        <div className="magic-list-mode">
+                            <p className="magic-list-mode-title">Mode:</p>
 
-                        <span>
-                            <label htmlFor="read-only">Read Only</label>
-                            <input type="checkbox"
-                                id="read-only"
-                                name="mode"
-                                value="read-only"
-                                checked={ !deleting && !editing}
-                                disabled={ sending }
-                                onChange={(e) => setMode(e.target.value)} />
-                        </span>
+                            <div>
+                                <label className="checkmark-container">
+                                    <span className="checkmark-label">Read Only</span>
+                                    <input type="checkbox"
+                                        id="read-only"
+                                        name="mode"
+                                        value="read-only"
+                                        checked={ !deleting && !editing}
+                                        disabled={ sending }
+                                        onChange={(e) => setMode(e.target.value)} />
+                                    <span className="checkmark"></span>
+                                </label>
 
-                        <span>
-                            <label htmlFor="edit-mode">Edit</label>
-                            <input type="checkbox"
-                                id="edit-mode"
-                                name="mode"
-                                value="edit-mode"
-                                checked={ editing }
-                                disabled={ sending }
-                                onChange={(e) => setMode(e.target.value)} />
-                        </span>
+                                <label className="checkmark-container">
+                                    <span className="checkmark-label">Edit</span>
+                                    <input type="checkbox"
+                                        id="edit-mode"
+                                        name="mode"
+                                        value="edit-mode"
+                                        checked={ editing }
+                                        disabled={ sending }
+                                        onChange={(e) => setMode(e.target.value)} />
+                                    <span className="checkmark"></span>
+                                </label>
 
-                        <span>
-                        <label htmlFor="delete-mode">Delete</label>
-                            <input type="checkbox"
-                                id="delete-mode"
-                                name="mode"
-                                value="delete-mode"
-                                checked={ deleting }
-                                disabled={ sending }
-                                onChange={(e) => setMode(e.target.value)} />
-                        </span>
-
-                        <button onClick={getSpells}>REFRESH</button><br/><br/>
+                                <label className="checkmark-container">
+                                    <span className="checkmark-label">Delete</span>
+                                    <input type="checkbox"
+                                        id="delete-mode"
+                                        name="mode"
+                                        value="delete-mode"
+                                        checked={ deleting }
+                                        disabled={ sending }
+                                        onChange={(e) => setMode(e.target.value)} />
+                                    <span className="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
 
-                    <ul>
+                    <ul className={`magic-list-itemlist ${sending ? 'sending' : ''}`}>
                         { spells.map((spell, key) => (
                             <li key={`list-${key}-v${version}`}>
-                                <form onSubmit={(e) => handleSubmitAction(e)} >
+                                <form className="magic-list-form"
+                                    onSubmit={(e) => handleSubmitAction(e)} >
+
                                     <ListHidden name={'id'}
                                                 value={spell.id}/>
 
@@ -241,12 +250,15 @@ const List = (props) => {
                                     <ListHidden name={'version'}
                                                 value={spell.version}/>
 
-                                    <FormattedDate date={spell.createdAt} />
+                                    <FormattedDate cssClass={'magic-list-form-date'}
+                                                date={spell.createdAt} />
 
                                     { (deleting || editing) &&
-                                        <button type="submit" disabled={sending}>
-                                            {deleting && 'REMOVE SPELL'}
-                                            {editing && 'EDIT SPELL'}
+                                        <button className="generic-button"
+                                            type="submit"
+                                            disabled={sending}>
+                                            {deleting && 'Delete Item'}
+                                            {editing && 'Send Edit'}
                                         </button>
                                     }
                                 </form>

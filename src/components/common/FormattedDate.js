@@ -1,4 +1,4 @@
-const FormattedDate = ({date}) => {
+const FormattedDate = ({date, cssClass}) => {
     const convertDate = () => {
         const dateOptions = { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' };
         const dateFormatter = new Intl.DateTimeFormat('en-US', dateOptions);
@@ -7,7 +7,7 @@ const FormattedDate = ({date}) => {
     }
 
     return (
-        <span >{ convertDate() }</span>
+        <span className={cssClass}>{ convertDate() }</span>
     );
 }
 

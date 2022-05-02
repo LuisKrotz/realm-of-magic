@@ -1,0 +1,139 @@
+@import '_variables';
+@import '_mixins';
+@import '_fonts';
+@import '_placeholders';
+
+@import 'common/checkmark.scss';
+
+.magic-list {
+    @extend %CREATE-NAVBAR-SPACING;
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+
+    &-title {
+        @extend .txt-md;
+        padding: 0 0 to-rem($F8);
+        color: var(--grey-3);
+
+        @include layout-768() {
+            padding: 0 to-rem($F12) to-rem($F8) 0;
+        }
+    }
+
+    &-mode {
+        @include layout-375() {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &-title {
+            @extend .txt-sm;
+        }
+
+
+        .checkmark-container {
+            &:first-of-type {
+                margin-right: to-rem($F8)
+            }
+
+            &:last-of-type {
+                margin-left: to-rem($F8)
+            }
+        }
+    }
+
+    &-itemlist {
+        @include layout-1280() {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: to-rem($F8);
+            margin-top: to-rem($F8);
+
+            // Padding to avoid cutting shadow on last el.
+            padding-bottom: to-rem($F5);
+        }
+
+        @include layout-1920() {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include layout-3840() {
+            grid-template-columns: repeat(5, 1fr);
+        }
+    }
+
+    &-form {
+        box-sizing: border-box;
+        border-radius: to-rem($F5);
+        padding: to-rem($F7) to-rem($F8);
+        margin: to-rem($F7) 0 to-rem($F7);
+        box-shadow: to-rem($F2) to-rem($F2) to-rem($F3) 0 var(--grey-1), to-rem(-$F2) to-rem(-$F3) to-rem($F5) 0  var(--grey-2);
+
+        @include layout-1024() {
+            padding: to-rem($F8) to-rem($F9);
+            margin: to-rem($F8) 0 to-rem($F9);
+        }
+
+        @include layout-1280() {
+            margin: 0;
+        }
+
+        .sending & {
+            pointer-events: none;
+            cursor: wait;
+        }
+
+        &-label {
+            @extend .txt-xs;
+
+            display: block;
+            color: var(--accent);
+        }
+
+        &-field {
+            @extend %RESET-INPUT;
+            @extend .txt-xs;
+
+            position: relative;
+            margin: to-rem($F5) 0 to-rem($F7);
+            border-bottom: 1px solid var(--grey-1);
+            width: 100%;
+            padding: 0 to-rem($F5);
+            box-sizing: border-box;
+    
+            &:focus {
+                color: var(--accent);
+                border-color: var(--accent);
+            }
+
+            &:placeholder-shown,
+            &::placeholder {
+                color: var(--grey-3);
+                border-color: var(--grey-2);
+            }
+        }
+
+        &-label,
+        &-field {
+            .sending & {
+                pointer-events: none;
+                cursor: wait;
+            }
+    
+        }
+
+        &-date {
+            width: 100%;
+            text-align: right;
+            display: block;
+        }
+
+        .generic-button {
+            margin-top: to-rem($F7);
+            width: 100%;
+        }
+    }
+}

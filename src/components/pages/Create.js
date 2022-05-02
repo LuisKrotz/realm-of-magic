@@ -140,7 +140,11 @@ const Create = (props) => {
                         onChange={(e) => setType(e.target.value)}
                         required/>
 
-                <button type="submit" disabled={sending}>submit</button>
+                <button className="generic-button"
+                        type="submit"
+                        disabled={sending}>
+                    Submit
+                </button>
             </form>
 
             { latestSpells.length > 0 &&

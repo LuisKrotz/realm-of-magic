@@ -106,6 +106,8 @@ $bk-7680:                   $vw-7680 - 1px;
 
 // Variables to be used in the layout
 // Fibonnaci sequence
+// Using fibonnacci to create visually pleasing distances
+
 $F0:                        0;
 $F1:                        1;
 $F2:                        1;
@@ -131,9 +133,3 @@ $F22:                       17711;
 $F23:                       28657;
 $F24:                       46368;
 $F25:                       75025;
-
-
-
-// Z-indexes
-$z-header:                  50;
-$z-loader:                  100;

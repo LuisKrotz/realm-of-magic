@@ -1,6 +1,6 @@
 const LoginButton = ({label, handleAction}) => {
     return (
-        <button className="login-button" onClick={handleAction}>{ label }</button>
+        <button className="generic-button" onClick={handleAction}>{ label }</button>
     );
 }
 
