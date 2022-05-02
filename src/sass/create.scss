@@ -1,0 +1,131 @@
+@import '_variables';
+@import '_mixins';
+@import '_fonts';
+@import '_placeholders';
+
+.magic-create {
+    @extend %CREATE-NAVBAR-SPACING;
+
+    &-title {
+        @extend %PAGE-SUBTITLE;
+    }
+
+    &-form {
+        box-sizing: border-box;
+        border-radius: to-rem($F5);
+
+        &.sending  {
+            pointer-events: none;
+            cursor: wait;
+        }
+
+        &-container {
+            @include layout-768() {
+                display: grid;
+                grid-template-columns: 4.5fr 1.5fr;
+                grid-column-gap: to-rem($F9)
+            }
+
+            @include layout-1280() {
+                grid-template-columns: 4fr 1fr;
+                grid-column-gap: to-rem($F10)
+            }
+        }
+
+        &-label {
+            @extend .txt-sm;
+
+            display: block;
+            color: var(--accent);
+        }
+
+        &-field {
+            @extend %DEFAULT-INPUT;
+            @extend .txt-xs;
+
+            margin: to-rem($F7) 0 to-rem($F9);
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+
+        &-label,
+        &-field {
+            .sending & {
+                pointer-events: none;
+                cursor: wait;
+            }
+    
+        }
+
+        .generic-button {
+            width: 100%;
+            margin-top: to-rem($F8);
+            border-radius: to-rem($F10);
+
+            @include layout-768() {
+                margin: 0;
+                border-radius: to-rem($F9);
+            }
+
+            &::after {
+                border-radius: to-rem($F10);
+
+                @include layout-768() {
+                    border-radius: to-rem($F9);
+                }
+            }
+        }
+    }
+
+    &-latest {
+        color: var(--accent);
+
+        &-title {
+            @extend .txt-md;
+
+            padding: to-rem($F10) 0 to-rem($F8);
+            color: var(--grey-1);
+        
+            @include layout-768() {
+                padding: to-rem($F10) 0 to-rem($F8);
+            }
+        }
+        
+        &-wrapper {
+            position: relative;
+            margin: 0 to-rem(calc($F8 / -2)) to-rem(-$F4);
+        }
+        
+        &-container {
+            margin: 0 to-rem(calc($F8 / 2)) to-rem($F8);
+            padding: to-rem($F8);
+            border: 1px solid var(--grey-2);
+            width: fit-content;
+            max-width: 100%;
+            display: inline-block;
+            word-break: break-all;
+
+
+            &-wrapper {
+                display: block;
+            }
+        }
+
+
+        &-label {
+            @extend .txt-xs;
+
+            display: inline;
+            color: var(--grey-1);
+        }
+
+        &-value {
+            @extend .txt-xs;
+
+            display: inline;
+            color: var(--grey-1);
+        }
+    }
+}

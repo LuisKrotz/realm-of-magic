@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify'
-import FormattedDate from "../common/FormattedDate"
+
+import '../../sass/create.scss'
+import LatestItem from "./create/LatestItem"
 
 const Create = (props) => {
     const [name, setName] = useState('')
@@ -116,52 +118,64 @@ const Create = (props) => {
 
 
     return (
-        <>
-            <form onSubmit={(e) => postSpell(e)}>
-                <h2>Create Spell</h2>
+        <div className="magic-create">
+            <form  className="magic-create-form"
+                onSubmit={(e) => postSpell(e)}>
+    
+                <h2 className="magic-create-title">Create Spell</h2>
 
-                <label htmlFor="name">Name</label>
-                <input id="name"
-                        name="name"
-                        type="text"
-                        placeholder="Wingardium Leviosa"
-                        disabled={sending}
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required/>
+                <div className="magic-create-form-container">
+                    <div>
+                        <label className="magic-create-form-label"
+                                htmlFor="name">
+                            Name
+                        </label>
+                        <input className="magic-create-form-field"
+                                id="name"
+                                name="name"
+                                type="text"
+                                placeholder="Wingardium Leviosa"
+                                disabled={sending}
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                required/>
 
-                <label htmlFor="type">Type</label>
-                <input id="type"
-                        name="type"
-                        type="text"
-                        placeholder="Charm"
-                        disabled={sending}
-                        value={type}
-                        onChange={(e) => setType(e.target.value)}
-                        required/>
+                        <label className="magic-create-form-label"
+                                htmlFor="type">Type</label>
+                        <input className="magic-create-form-field"
+                                id="type"
+                                name="type"
+                                type="text"
+                                placeholder="Charm"
+                                disabled={sending}
+                                value={type}
+                                onChange={(e) => setType(e.target.value)}
+                                required/>
+                    </div>
+                    <button className="generic-button"
+                            type="submit"
+                            disabled={sending}>
+                        Create
+                    </button>
+                </div>
 
-                <button className="generic-button"
-                        type="submit"
-                        disabled={sending}>
-                    Submit
-                </button>
             </form>
-
             { latestSpells.length > 0 &&
-                <>
-                    <h3>Latest Additions:</h3>
-                    <ul>
+                <div>
+                    <h3 className="magic-create-latest-title">Latest Additions:</h3>
+                    <ul className="magic-create-latest-wrapper">
                         {latestSpells.map((spell, key) => (
-                             <li key={`list-${key}-v${version}`}>
-                                <span>Name: {spell.name}</span>
-                                <span>Type: {spell.type}</span>
-                                <span>Date: <FormattedDate date={spell.createdAt} /></span>
-                            </li>
+                        <li className="magic-create-latest-container"
+                            key={`list-${key}-v${version}`}>
+                            <LatestItem name={'Name:'} value={spell.name}/>
+                            <LatestItem name={'Type:'} value={spell.type}/>
+                            <LatestItem name={'Date:'} value={spell.createdAt}/>
+                        </li>
                         ))}
                     </ul>
-                </>
+                </div>
             }
-        </>
+        </div>
     )
 }
 

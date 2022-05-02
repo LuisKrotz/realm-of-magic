@@ -9,7 +9,7 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-%RESET-INPUT {
+%DEFAULT-INPUT {
     background-color: var(--white);
     color: var(--black);
     border: none;
@@ -19,10 +19,18 @@
     padding: 0;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+    position: relative;
+    border-bottom: 1px solid var(--grey-1);
+    width: 100%;
+    padding: 0 to-rem($F5);
+    box-sizing: border-box;
+
 
     &:focus {
         box-shadow: none;
         outline: none;
+        color: var(--accent);
+        border-color: var(--accent);
     }
 
     // Remove webkit autofill background
@@ -38,7 +46,8 @@
 
     &:placeholder-shown,
     &::placeholder {
-        color: var(--black);
+        color: var(--grey-3);
+        border-color: var(--grey-2);
     }
 }
 
@@ -173,6 +182,10 @@
 
 
 %CREATE-NAVBAR-SPACING {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+
     &::before,
     &:after {
         @extend .ttl-md;
@@ -189,5 +202,16 @@
             padding-top: to-rem($F10);
             padding-bottom: to-rem($F10);
         }
+    }
+}
+
+%PAGE-SUBTITLE {
+    @extend .txt-md;
+
+    padding: 0 0 to-rem($F8);
+    color: var(--grey-3);
+
+    @include layout-768() {
+        padding: 0 to-rem($F12) to-rem($F8) 0;
     }
 }

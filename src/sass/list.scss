@@ -8,18 +8,8 @@
 .magic-list {
     @extend %CREATE-NAVBAR-SPACING;
 
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-
     &-title {
-        @extend .txt-md;
-        padding: 0 0 to-rem($F8);
-        color: var(--grey-3);
-
-        @include layout-768() {
-            padding: 0 to-rem($F12) to-rem($F8) 0;
-        }
+        @extend %PAGE-SUBTITLE;
     }
 
     &-mode {
@@ -94,26 +84,9 @@
         }
 
         &-field {
-            @extend %RESET-INPUT;
+            @extend %DEFAULT-INPUT;
             @extend .txt-xs;
-
-            position: relative;
             margin: to-rem($F5) 0 to-rem($F7);
-            border-bottom: 1px solid var(--grey-1);
-            width: 100%;
-            padding: 0 to-rem($F5);
-            box-sizing: border-box;
-    
-            &:focus {
-                color: var(--accent);
-                border-color: var(--accent);
-            }
-
-            &:placeholder-shown,
-            &::placeholder {
-                color: var(--grey-3);
-                border-color: var(--grey-2);
-            }
         }
 
         &-label,

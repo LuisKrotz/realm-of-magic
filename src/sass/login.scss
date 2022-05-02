@@ -65,26 +65,10 @@
     }
 
     &-field {
-        @extend %RESET-INPUT;
+        @extend %DEFAULT-INPUT;
 
         @extend .txt-sm;
-        position: relative;
         margin: to-rem($F5) 0 to-rem($F7);
-        border-bottom: 1px solid var(--grey-1);
-        width: 100%;
-        padding: 0 to-rem($F5);
-        box-sizing: border-box;
-
-        &:focus {
-            color: var(--accent);
-            border-color: var(--accent);
-        }
-
-        &:placeholder-shown,
-        &::placeholder {
-            color: var(--grey-3);
-            border-color: var(--grey-2);
-        }
     }
 
     &-buttons {
