@@ -19,12 +19,12 @@ const Navbar = () => {
 
             <div>
                 {(location.pathname === global.config.routes.create) && <Link className='nav-link'
-                                                                            to={global.config.routes.create}>
+                                                                            to={global.config.routes.list}>
                                                                             List
                                                                         </Link>}
 
                 {(location.pathname === global.config.routes.list) && <Link className='nav-link'
-                                                                            to={global.config.routes.list}>
+                                                                            to={global.config.routes.create}>
                                                                         Create
                                                                         </Link>}
                 
